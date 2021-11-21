@@ -29,6 +29,7 @@ Enter Q to quit.
 Enter T to print inorder traversal.
 The uses and functionallity of all functions are mentioned side by side as comments in the main code.
 
+Debugged successfully.
 
 Thankyou !
 
