@@ -21,6 +21,7 @@ struct node *createnode(int val)
     temp->right = NULL;
     temp->leftthread = true;  // initially left child is null
     temp->rightthread = true; // initially left child is null
+    return temp;
 }
 
 // function to search any node in the tree
