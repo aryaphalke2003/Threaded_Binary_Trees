@@ -11,7 +11,7 @@ Jemee Butani (2020csb1091)
 
 Summary:
 In this project we have implemented and analysed doubly threaded binary trees. 
-Why threaded binary three? In normal binary trees we had to use stack and recursion for in order traversal but with help of threaded binary trees, we can do it faster. 
+Why threaded binary tree? In normal binary trees we had to use stack and recursion for in order traversal but with help of threaded binary trees, we can do it faster. 
 We are basically using the NULL pointers which are available to point to inorder successor & predecessor. 
 Also, ancestor of any node can be accessed very fast using this type of trees.
 Doubly Threaded Binary Search Tree is one of the most used types of Advanced Data Structures used in places where faster traversal is required.
