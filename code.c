@@ -9,22 +9,24 @@ struct node
     struct node *left;  // stores address of left child
     struct node *right; // stores address of right child
     bool leftthread;    // 0-indicates node has left child otherwise indicates left child is null
-    bool rightthread;   // 0-indicates node has left child otherwise indicates left child is null
+    bool rightthread;   // 0-indicates node has right child otherwise indicates right child is null
 };
 
 // function to create a node
+struct node* dummy;
+
 struct node *createnode(int val)
 {
     struct node *temp = malloc(sizeof(struct node));
     temp->data = val;
-    temp->left = NULL;
-    temp->right = NULL;
+    temp->left = dummy;
+    temp->right = dummy;
     temp->leftthread = true;  // initially left child is null
     temp->rightthread = true; // initially left child is null
     return temp;
 }
-
 // function to search any node in the tree
+// searching without recursion
 void search(struct node *root, int key)
 {
     struct node *temp = root;
@@ -59,13 +61,21 @@ void insert(struct node **root, int val)
 {
     struct node *temp = *root;
     struct node *par = NULL; // parent node
-    while (temp != NULL)
+    if(!temp){
+        struct node* p= createnode(val);
+        p->left=dummy;
+        p->right=dummy;
+        *root=p;
+        return;
+    }
+    while (temp != dummy)
     {
         if (val == temp->data)
         { // if the element is already present
             return;
         }
         par = temp; // insert at proper place
+
         if (val < temp->data)
         {
             if (temp->leftthread == false)
@@ -73,7 +83,10 @@ void insert(struct node **root, int val)
                 temp = temp->left;
             }
             else
-                break;
+                {
+                    par=temp;
+                    break;
+                }
         }
         if (val > temp->data){
     
@@ -82,14 +95,20 @@ void insert(struct node **root, int val)
                 temp = temp->right;
             }
             else
-                break;
+                {
+                    par=temp;
+                    break;
+                }
         }
     }
     // if element is not present
     struct node *ptr = createnode(val); // create node
-
     if (par == NULL)   // if tree is empty
-        (*root) = ptr; // node becomes root else enter at proper place
+       { ptr->left=dummy;
+       ptr->right=dummy;
+        (*root) = ptr;
+       }
+        // node becomes root else enter at proper place
     else if (val < par->data)
     {
 
@@ -100,6 +119,7 @@ void insert(struct node **root, int val)
     }
     else
     {
+
         ptr->left = par;
         ptr->right = par->right;
         par->rightthread = false;
@@ -129,9 +149,12 @@ void inorder(struct node *root)
     struct node *ptr = root;
     while (ptr->leftthread == false)
     {
+    // printf("%d",ptr->data);
+
         ptr = ptr->left;
+
     }
-    while (ptr != NULL)
+    while (ptr != dummy)
     {
         printf("%d ", ptr->data);
         ptr = inorder_successor(ptr);
@@ -287,6 +310,7 @@ struct node *delete (struct node *root, int key)
 }
 int main()
 {
+    dummy=createnode(INT_MIN);
     struct node *root = NULL;
     while (1)
     {
